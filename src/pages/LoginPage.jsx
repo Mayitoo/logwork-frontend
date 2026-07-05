@@ -16,7 +16,7 @@ const LoginPage = () => {
 
     try {
       // Conexión al endpoint que acabamos de crear en el index.js
-      const response = await axios.post('http://localhost:3001/api/login', loginData);
+      const response = await axios.post('https://logwork-backend.onrender.com/api/login', loginData);
 
       if (response.data.success) {
         // Guardamos el objeto usuario en el storage para persistencia

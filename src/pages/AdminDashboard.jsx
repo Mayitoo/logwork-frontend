@@ -35,11 +35,11 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       // 1. Obtener Operadores / Usuarios
-      const resUsers = await axiosObj.get("http://localhost:3001/api/admin/users");
+      const resUsers = await axiosObj.get("https://logwork-backend.onrender.com/api/admin/users");
       setUsuarios(resUsers.data || []);
 
       // 2. Obtener Flota
-      const resFlota = await axiosObj.get("http://localhost:3001/api/admin/clients-summary");
+      const resFlota = await axiosObj.get("https://logwork-backend.onrender.com/api/admin/clients-summary");
       const datosFlota = resFlota.data || [];
       
       // Agrupar máquinas por operador responsable
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
 
   const fetchIssues = async () => {
     try {
-      const res = await axiosObj.get('http://localhost:3001/api/admin/mechanical-issues');
+      const res = await axiosObj.get('https://logwork-backend.onrender.com/api/admin/mechanical-issues');
       setIssues(res.data || []);
     } catch (err) {
       console.error("Error al cargar fallas técnicas:", err);
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
   const handleSaveUser = async (e) => {
     e.preventDefault();
     try {
-      await axiosObj.post("http://localhost:3001/api/admin/users", newUser);
+      await axiosObj.post("https://logwork-backend.onrender.com/api/admin/users", newUser);
       setShowUserModal(false);
       setNewUser({ username: '', password: '', name: '', role: 'operator' }); // Limpieza con 'operator'
       fetchData();
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
         dataPack.password = editingUser.password;
       }
 
-      await axiosObj.post("http://localhost:3001/api/admin/users/update", dataPack);
+      await axiosObj.post("https://logwork-backend.onrender.com/api/admin/users/update", dataPack);
       setShowEditModal(false);
       fetchData();
       alert("Datos de usuario actualizados correctamente.");
@@ -116,7 +116,7 @@ const AdminDashboard = () => {
   const deleteUser = async (id) => {
     if (window.confirm("¿Seguro que deseas dar de baja a este usuario?")) {
       try {
-        await axiosObj.delete(`http://localhost:3001/api/admin/users/${id}`);
+        await axiosObj.delete(`https://logwork-backend.onrender.com/api/admin/users/${id}`);
         fetchData();
       } catch (err) { alert("Error al eliminar"); }
     }
@@ -131,7 +131,7 @@ const AdminDashboard = () => {
         client_id: newMachine.operator_id,
         serial_number: newMachine.serial_number
       };
-      await axiosObj.post("http://localhost:3001/api/admin/machines", dataPack);
+      await axiosObj.post("https://logwork-backend.onrender.com/api/admin/machines", dataPack);
       setShowMachineModal(false);
       setNewMachine({ name: '', operator_id: '', serial_number: '', total_hours: 0 });
       fetchData();
@@ -150,7 +150,7 @@ const AdminDashboard = () => {
         serial_number: editingMachine.serial_number,
         total_hours: editingMachine.total_hours
       };
-      await axiosObj.put(`http://localhost:3001/api/admin/machines/${editingMachine.id}`, dataPack);
+      await axiosObj.put(`https://logwork-backend.onrender.com/api/admin/machines/${editingMachine.id}`, dataPack);
       setShowEditMachineModal(false);
       fetchData();
     } catch (err) { alert("Error al reasignar unidad"); }
@@ -159,7 +159,7 @@ const AdminDashboard = () => {
   const deleteMachine = async (id) => {
     if (window.confirm("¿Deseas eliminar permanentemente esta unidad de la flota?")) {
       try {
-        await axiosObj.delete(`http://localhost:3001/api/admin/machines/${id}`);
+        await axiosObj.delete(`https://logwork-backend.onrender.com/api/admin/machines/${id}`);
         fetchData();
       } catch (err) { alert("Error al borrar unidad"); }
     }
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
   const resetMaintenance = async (id) => {
     if (window.confirm("¿Confirmas que se realizó el mantenimiento físico? El contador volverá a 0 horas.")) {
       try {
-        await axiosObj.put(`http://localhost:3001/api/admin/reset-maint/${id}`);
+        await axiosObj.put(`https://logwork-backend.onrender.com/api/admin/reset-maint/${id}`);
         fetchData();
       } catch (err) { alert("Error al resetear mantenimiento"); }
     }
@@ -177,7 +177,7 @@ const AdminDashboard = () => {
   const handleResolveIssue = async (id) => {
     if (window.confirm("¿Marcar reporte técnico como Solucionado?")) {
       try {
-        await axiosObj.put(`http://localhost:3001/api/admin/resolve-issue/${id}`);
+        await axiosObj.put(`https://logwork-backend.onrender.com/api/admin/resolve-issue/${id}`);
         fetchIssues();
       } catch (err) { alert("Error al resolver falla"); }
     }
