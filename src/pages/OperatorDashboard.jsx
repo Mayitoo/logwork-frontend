@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosObj from 'axios'; 
 import { Fuel, Wrench, FileText, CheckCircle, Clock, LogOut, Camera, Gauge } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:3001'; 
+const API_BASE_URL = 'https://logwork-backend.onrender.com'; 
 
 const OperatorDashboard = () => {
   const [machines, setMachines] = useState([]);
